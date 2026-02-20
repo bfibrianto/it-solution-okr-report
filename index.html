@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Dashboard - OKR IT Solution SMT 1 2026</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        base: '#0F172A',
+                        card: '#1E293B',
+                        success: '#10B981',
+                        critical: '#F43F5E',
+                        warning: '#F59E0B',
+                        accent: '#3B82F6',
+                        cyan: '#06B6D4'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast-enter {
+            animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-12">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3"></div>
+
+    <!-- Navbar / Header -->
+    <header class="sticky top-0 z-50 bg-base/80 backdrop-blur-md border-b border-slate-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-cyan flex items-center justify-center shadow-lg shadow-cyan/20">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">SMT 1 2026 OKR ALIGNMENT</h1>
+                    <p class="text-xs text-slate-400 font-medium">PRE-READ & BOTTLENECK REVIEW</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 md:gap-6">
+                <div class="hidden md:flex items-center gap-2 text-sm text-slate-300">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    Bagus Fibrianto
+                </div>
+                <div class="px-3 py-1.5 rounded-full bg-warning/10 border border-warning/30 flex items-center gap-2">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-warning opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-warning"></span>
+                    </span>
+                    <span class="text-sm font-semibold text-warning hidden sm:inline">Status: Stabilisasi</span>
+                </div>
+                
+                <!-- Interactive Sync Button -->
+                <button id="btn-sync" onclick="simulateSync()" class="p-2 rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 hover:text-cyan transition-colors group text-slate-400 focus:outline-none">
+                    <svg id="icon-sync" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-8">
+
+        <!-- 1. Executive Summary -->
+        <section class="animate-fade-in bg-card border border-slate-700/50 rounded-2xl p-6 lg:p-8 shadow-xl relative overflow-hidden group hover:border-cyan/50 transition-colors">
+            <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-cyan to-accent"></div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-slate-800 rounded-lg border border-slate-700 shadow-inner">
+                    <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h2 class="text-lg font-bold">Executive Summary & Business Delta</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>Memasuki pertengahan Q1 2026, status kesehatan OKR divisi IT Solution berada pada level <strong class="text-warning bg-warning/10 px-1 rounded">Waspada (Kuning)</strong> dengan tren perbaikan likuiditas yang sangat positif. <em>Blind spot</em> operasional bulan lalu sudah teratasi, dengan total progres objektif <strong class="text-white">Hyper-Productivity via AI Adoption</strong> menyentuh angka <strong class="text-success">23.81%</strong>.</p>
+                    <p>Kita mencetak dua <strong>Quick Win</strong> krusial bulan ini. Pertama, riset "Vibe Coding" terbukti memangkas waktu <em>delivery</em> (40 menit/modul) dan mengamankan proyek baru senilai <strong class="text-cyan">Rp 158 Juta</strong>. Kedua, tim sukses mengeksekusi penagihan AR <em>legacy</em> sebesar <strong class="text-success">Rp 2 Miliar</strong> di awal Februari, memberikan injeksi <em>cash flow</em> yang sangat dibutuhkan perusahaan.</p>
+                </div>
+                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700/50 border-l-4 border-l-warning transform transition hover:-translate-y-1 hover:shadow-lg">
+                    <h3 class="text-warning font-bold text-sm mb-2 flex items-center gap-2 uppercase tracking-wider">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                        The Blocker
+                    </h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        <em>Core Business</em> kita masih menghadapi risiko bottleneck. Sales Order siap kerja senilai <strong class="text-white">Rp 6,2 Miliar (BTN)</strong> tersendat total akibat infrastruktur klien (akses CDN ditolak & instabilitas laptop). Walaupun sisa piutang menyusut menjadi Rp 1,3 Miliar, hambatan BTN ini menunda potensi <em>cash-inflow</em> skala besar. Eksekusi pipa pendapatan utama masih tercekik di infrastruktur klien.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Financial & OKR Health Check -->
+        <section class="animate-fade-in delay-100">
+            <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Financial & OKR Health Check
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- Revenue Card -->
+                <div class="bg-card rounded-2xl p-5 border border-slate-700/50 hover:bg-slate-800/80 transition-colors flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-sm font-medium text-slate-400 group-hover:text-slate-300 transition">Total Revenue</p>
+                            <span class="w-2 h-2 rounded-full bg-warning mt-1.5 shadow-[0_0_8px_#F59E0B]"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold" id="val-revenue">Rp 2.158 M</h3>
+                        <p class="text-xs text-slate-400 mt-1">Target: Rp 11 Miliar</p>
+                    </div>
+                    <div class="mt-4 h-32 relative">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-3 leading-snug border-t border-slate-700 pt-2">
+                        Penambahan Rp 2M AR + Rp 158Jt Vibe Coding. Sisa bergantung pipeline utama Rp 6,2M.
+                    </p>
+                </div>
+
+                <!-- Outstanding AR Card -->
+                <div class="bg-card rounded-2xl p-5 border border-slate-700/50 hover:bg-slate-800/80 transition-colors flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-sm font-medium text-slate-400 group-hover:text-slate-300 transition">Outstanding AR</p>
+                            <span class="w-2 h-2 rounded-full bg-success mt-1.5 shadow-[0_0_8px_#10B981]"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-success" id="val-ar">~60% Tertagih</h3>
+                        <p class="text-xs text-slate-400 mt-1">Rp 2M dari total Rp 3,3M</p>
+                    </div>
+                    <div class="mt-4 h-32 relative flex justify-center">
+                        <canvas id="arChart"></canvas>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-3 leading-snug border-t border-slate-700 pt-2">
+                        <strong class="text-success">ON TRACK.</strong> Fokus dunning beralih melikuidasi sisa backlog Rp 1,3M.
+                    </p>
+                </div>
+
+                <!-- Win Rate Card -->
+                <div class="bg-card rounded-2xl p-5 border border-slate-700/50 hover:bg-slate-800/80 transition-colors flex flex-col justify-between h-full">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-sm font-medium text-slate-400">Win Rate Sales</p>
+                            <span class="w-2 h-2 rounded-full bg-warning mt-1.5"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-500 italic">N/A</h3>
+                        <p class="text-xs text-slate-400 mt-1">Target SMT 1: 35%</p>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center my-4">
+                        <div class="w-full bg-slate-900 rounded-lg p-3 border border-slate-700/50 text-center">
+                            <span class="text-xs text-slate-400">Data Belum Diinput</span>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-3 leading-snug border-t border-slate-700 pt-2">
+                        Adopsi Sales Playbook masih 0%. Kemenangan Rp 158Jt belum ditarik sbg rasio konversi.
+                    </p>
+                </div>
+
+                <!-- Net Profit Card -->
+                <div class="bg-card rounded-2xl p-5 border border-slate-700/50 hover:bg-slate-800/80 transition-colors flex flex-col justify-between h-full">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-sm font-medium text-slate-400">Net Profit</p>
+                            <span class="w-2 h-2 rounded-full bg-warning mt-1.5"></span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-500 italic">N/A</h3>
+                        <p class="text-xs text-slate-400 mt-1">Target SMT 1: 45%</p>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center my-4">
+                        <div class="flex items-center justify-center gap-2 text-cyan">
+                            <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span class="text-sm font-semibold text-center">Potensi Lonjakan Margin</span>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-3 leading-snug border-t border-slate-700 pt-2">
+                        Belum dapat dihitung pasti. Efisiensi 40 menit/modul (Vibe Coding) mengindikasikan potensi.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. Grid: Blockers & Decisions -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in delay-200">
+            
+            <!-- Blockers -->
+            <div class="bg-card border border-slate-700/50 rounded-2xl p-6 shadow-lg">
+                <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-critical">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    Critical Blockers
+                </h2>
+                <div class="space-y-4">
+                    <!-- Blocker 1 -->
+                    <div class="p-4 bg-slate-900/50 border-l-4 border-l-critical rounded-r-xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                        <h4 class="text-sm font-bold text-white mb-1">1. Infrastruktur & Akses Klien (BTN)</h4>
+                        <p class="text-xs text-slate-300 mb-2">Akses Frontend Dev menuju CDN ditolak & antrean deployment sangat lambat akibat instabilitas jaringan remote laptop BTN.</p>
+                        <div class="text-[11px] bg-critical/10 text-critical p-2 rounded mb-2 font-medium border border-critical/20">
+                            <span class="font-bold">Impact:</span> Mengancam target On-Time Delivery 95%, menunda BAST, membekukan SO Rp 6,2 Miliar.
+                        </div>
+                        <p class="text-[11px] text-slate-400"><span class="text-accent font-semibold">Action (PMO & AM):</span> Eskalasi manajerial ke BTN untuk whitelisting domain.</p>
+                    </div>
+                    
+                    <!-- Blocker 2 -->
+                    <div class="p-4 bg-slate-900/50 border-l-4 border-l-warning rounded-r-xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                        <h4 class="text-sm font-bold text-white mb-1">2. Ketiadaan SOP Vibe Coding</h4>
+                        <p class="text-xs text-slate-300 mb-2">Belum ada SOP PM baku untuk Vibe Coding (analisa effort, budgeting, SDLC hingga closing masih kosong).</p>
+                        <div class="text-[11px] bg-warning/10 text-warning p-2 rounded mb-2 font-medium border border-warning/20">
+                            <span class="font-bold">Impact:</span> Menghambat standardisasi, estimasi menjadi blind spot, berisiko menurunkan margin keuntungan.
+                        </div>
+                        <p class="text-[11px] text-slate-400"><span class="text-accent font-semibold">Action (PMO & IT Sol):</span> Rumuskan draf SOP & uji coba langsung ke project baru.</p>
+                    </div>
+
+                    <!-- Blocker 3 -->
+                    <div class="p-4 bg-slate-900/50 border-l-4 border-l-warning rounded-r-xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                        <h4 class="text-sm font-bold text-white mb-1">3. Limitasi Hardware Internal</h4>
+                        <p class="text-xs text-slate-300 mb-2">Storage Macbook Engineer Front End (Pram) penuh.</p>
+                        <div class="text-[11px] bg-warning/10 text-warning p-2 rounded mb-2 font-medium border border-warning/20">
+                            <span class="font-bold">Impact:</span> Menurunkan cycle time penyelesaian proyek Bale Community.
+                        </div>
+                        <p class="text-[11px] text-slate-400"><span class="text-accent font-semibold">Action (IT Internal/GA):</span> Penambahan storage/device sementara.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decisions (Interactive) -->
+            <div class="bg-card border border-slate-700/50 rounded-2xl p-6 shadow-lg flex flex-col relative overflow-hidden">
+                <!-- Background Pattern -->
+                <svg class="absolute bottom-0 right-0 w-48 h-48 text-slate-800/30 -z-0 pointer-events-none" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 3.5l7.5 15h-15L12 5.5z"/></svg>
+
+                <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-accent relative z-10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                    Proposed Decisions ("Ketuk Palu")
+                </h2>
+                <div class="space-y-4 flex-1 relative z-10">
+                    <!-- Decision A -->
+                    <div class="relative p-4 bg-slate-900 rounded-xl border border-slate-700 group hover:border-accent transition-all decision-card">
+                        <h4 class="text-sm font-bold text-accent mb-1">Keputusan A: Standardisasi Proyek AI</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">Persetujuan mandat kepada PMO dan Head of IT Solution untuk merilis draf final SOP <em>Project Management "Vibe Coding"</em> minggu ini, dan langsung mengujicobakannya pada eksekusi opportunity baru (proyek Rp 158 Jt).</p>
+                        <div class="flex gap-2">
+                            <button onclick="handleDecision(this, 'Standardisasi Proyek AI', 'approve')" class="text-xs font-semibold px-4 py-1.5 bg-accent/20 text-accent rounded-lg border border-accent/30 hover:bg-accent hover:text-white transition-all focus:ring-2 focus:ring-accent/50 outline-none">Ya, Setuju</button>
+                            <button onclick="handleDecision(this, 'Standardisasi Proyek AI', 'delay')" class="text-xs font-semibold px-4 py-1.5 bg-slate-800 text-slate-400 rounded-lg border border-slate-700 hover:bg-slate-700 hover:text-white transition-all focus:ring-2 focus:ring-slate-500 outline-none">Tunda</button>
+                        </div>
+                    </div>
+
+                    <!-- Decision B -->
+                    <div class="relative p-4 bg-slate-900 rounded-xl border border-slate-700 group hover:border-accent transition-all decision-card">
+                        <h4 class="text-sm font-bold text-accent mb-1">Keputusan B: Eskalasi Klien Utama (BTN)</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">Menaikkan isu "Akses Jaringan Dev BTN" menjadi High-Severity Business Issue. Mewajibkan PMO memimpin meeting tatap muka dengan VP BTN maksimal minggu ini untuk whitelisting CDN.</p>
+                         <div class="flex gap-2">
+                            <button onclick="handleDecision(this, 'Eskalasi Klien Utama (BTN)', 'approve')" class="text-xs font-semibold px-4 py-1.5 bg-accent/20 text-accent rounded-lg border border-accent/30 hover:bg-accent hover:text-white transition-all focus:ring-2 focus:ring-accent/50 outline-none">Ya, Setuju</button>
+                            <button onclick="handleDecision(this, 'Eskalasi Klien Utama (BTN)', 'delay')" class="text-xs font-semibold px-4 py-1.5 bg-slate-800 text-slate-400 rounded-lg border border-slate-700 hover:bg-slate-700 hover:text-white transition-all focus:ring-2 focus:ring-slate-500 outline-none">Tunda</button>
+                        </div>
+                    </div>
+
+                    <!-- Decision C -->
+                    <div class="relative p-4 bg-slate-900 rounded-xl border border-slate-700 group hover:border-accent transition-all decision-card">
+                        <h4 class="text-sm font-bold text-accent mb-1">Keputusan C: Resolusi Operasional</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">Persetujuan budget/action darurat kepada IT Internal untuk melakukan upgrade storage Pram pada hari ini juga.</p>
+                         <div class="flex gap-2">
+                            <button onclick="handleDecision(this, 'Resolusi Operasional', 'approve')" class="text-xs font-semibold px-4 py-1.5 bg-accent/20 text-accent rounded-lg border border-accent/30 hover:bg-accent hover:text-white transition-all focus:ring-2 focus:ring-accent/50 outline-none">Ya, Setuju</button>
+                            <button onclick="handleDecision(this, 'Resolusi Operasional', 'delay')" class="text-xs font-semibold px-4 py-1.5 bg-slate-800 text-slate-400 rounded-lg border border-slate-700 hover:bg-slate-700 hover:text-white transition-all focus:ring-2 focus:ring-slate-500 outline-none">Tunda</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 4. Action Item Tracker & Tactical Moves -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in delay-300">
+            
+            <!-- Action Items (Interactive Tabs) -->
+            <div class="bg-card border border-slate-700/50 rounded-2xl p-6 shadow-lg lg:col-span-2 flex flex-col">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                    <h2 class="text-lg font-bold flex items-center gap-2">
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        Action Item Tracker
+                    </h2>
+                    
+                    <!-- Filter Buttons -->
+                    <div class="flex bg-slate-900 rounded-lg p-1 border border-slate-700 w-fit">
+                        <button onclick="filterTable('all', this)" class="filter-btn active text-xs font-medium px-3 py-1.5 rounded-md bg-slate-700 text-white transition-colors">Semua</button>
+                        <button onclick="filterTable('done', this)" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 transition-colors">Selesai</button>
+                        <button onclick="filterTable('late', this)" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 transition-colors">Terlambat</button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto flex-1">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-xs uppercase text-slate-400 border-b border-slate-700">
+                                <th class="pb-3 font-semibold px-2">Task Sebelumnya</th>
+                                <th class="pb-3 font-semibold px-2">PIC</th>
+                                <th class="pb-3 font-semibold px-2 text-center">Status</th>
+                                <th class="pb-3 font-semibold px-2 min-w-[200px]">Output & Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody id="task-table-body" class="text-sm text-slate-300 divide-y divide-slate-700/50">
+                            <!-- Item 1 -->
+                            <tr class="task-row hover:bg-slate-800/50 transition-colors" data-status="done">
+                                <td class="py-3 px-2 font-medium">Penagihan AR Q1 2026</td>
+                                <td class="py-3 px-2 text-xs">PMO & Finance</td>
+                                <td class="py-3 px-2 text-center"><span class="px-2 py-1 bg-success/10 text-success text-[10px] font-bold rounded uppercase tracking-wider border border-success/20">Done</span></td>
+                                <td class="py-3 px-2 text-xs"><strong class="text-success">CRITICAL WIN:</strong> Rp 2 Miliar berhasil masuk ke kas!</td>
+                            </tr>
+                            <!-- Item 2 -->
+                            <tr class="task-row hover:bg-slate-800/50 transition-colors" data-status="done">
+                                <td class="py-3 px-2 font-medium">Riset standar workflow AI</td>
+                                <td class="py-3 px-2 text-xs">Bagus Fibrianto</td>
+                                <td class="py-3 px-2 text-center"><span class="px-2 py-1 bg-success/10 text-success text-[10px] font-bold rounded uppercase tracking-wider border border-success/20">Done</span></td>
+                                <td class="py-3 px-2 text-xs"><strong class="text-cyan">BIG WIN:</strong> Pangkas 40mnt/modul. Proyek 158Jt diamankan.</td>
+                            </tr>
+                            <!-- Item 3 -->
+                            <tr class="task-row hover:bg-slate-800/50 transition-colors" data-status="done">
+                                <td class="py-3 px-2 font-medium">Penyusunan parameter SOP Vibe Coding</td>
+                                <td class="py-3 px-2 text-xs">Bagus Fibrianto</td>
+                                <td class="py-3 px-2 text-center"><span class="px-2 py-1 bg-success/10 text-success text-[10px] font-bold rounded uppercase tracking-wider border border-success/20">Done</span></td>
+                                <td class="py-3 px-2 text-xs">Standardisasi selesai, tunggu sosialisasi Lead.</td>
+                            </tr>
+                            <!-- Item 4 -->
+                            <tr class="task-row hover:bg-slate-800/50 transition-colors" data-status="done">
+                                <td class="py-3 px-2 font-medium">Piloting KPI per role sub-divisi</td>
+                                <td class="py-3 px-2 text-xs">Bagus Fibrianto</td>
+                                <td class="py-3 px-2 text-center"><span class="px-2 py-1 bg-success/10 text-success text-[10px] font-bold rounded uppercase tracking-wider border border-success/20">Done</span></td>
+                                <td class="py-3 px-2 text-xs">Metrik piloting dipastikan valid & siap dievaluasi.</td>
+                            </tr>
+                            <!-- Item 5 -->
+                            <tr class="task-row hover:bg-slate-800/50 transition-colors bg-critical/5" data-status="late">
+                                <td class="py-3 px-2 font-medium text-white">Tim Lead memulai piloting KPI (W1 Feb)</td>
+                                <td class="py-3 px-2 text-xs text-white">Para Lead</td>
+                                <td class="py-3 px-2 text-center"><span class="px-2 py-1 bg-critical/20 text-critical text-[10px] font-bold rounded uppercase tracking-wider border border-critical/40">Late (0%)</span></td>
+                                <td class="py-3 px-2 text-xs"><strong class="text-critical">[ACTION REQ]:</strong> Bottleneck di Lead. Segera evaluasi.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tactical Moves (Span 1) -->
+            <div class="bg-card border border-slate-700/50 rounded-2xl p-6 shadow-lg bg-gradient-to-br from-card to-slate-900 group">
+                <h2 class="text-lg font-bold mb-5 flex items-center gap-2 text-white">
+                    <svg class="w-5 h-5 text-success group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    Tactical Moves (14 Days)
+                </h2>
+
+                <div class="relative border-l border-slate-700 ml-3 space-y-6 pb-2">
+                    <!-- Move 1 -->
+                    <div class="relative pl-6 transition-all hover:-translate-y-1">
+                        <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-success rounded-full ring-4 ring-card shadow-[0_0_8px_#10B981]"></div>
+                        <h4 class="text-sm font-bold text-white mb-1">AR War Room - Phase 2</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">PMO & Finance lanjutkan dunning agresif untuk melikuidasi sisa piutang legacy <strong class="text-slate-200">Rp 1,3M</strong>.</p>
+                    </div>
+                    
+                    <!-- Move 2 -->
+                    <div class="relative pl-6 transition-all hover:-translate-y-1">
+                        <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-cyan rounded-full ring-4 ring-card shadow-[0_0_8px_#06B6D4]"></div>
+                        <h4 class="text-sm font-bold text-white mb-1">PM SOP Piloting</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Susun draf SOP PM <em>Vibe Coding</em> dan uji cobakan langsung ke proyek Rp 158 Juta.</p>
+                    </div>
+
+                    <!-- Move 3 -->
+                    <div class="relative pl-6 transition-all hover:-translate-y-1">
+                        <div class="absolute -left-1.5 top-1.5 w-3 h-3 bg-accent rounded-full ring-4 ring-card shadow-[0_0_8px_#3B82F6]"></div>
+                        <h4 class="text-sm font-bold text-white mb-1">BTN Resource Shift</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Pindahkan engineer yang idle ke proyek Vibe Coding yang siap generate kas.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Interactive JavaScript Logic -->
+    <script>
+        // --- 1. Toast Notification System ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            // Setup styles based on type
+            let bgColor, icon;
+            if (type === 'success') {
+                bgColor = 'bg-success border-success text-white shadow-[0_4px_12px_rgba(16,185,129,0.3)]';
+                icon = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            } else if (type === 'warning') {
+                bgColor = 'bg-slate-800 border-warning text-white shadow-[0_4px_12px_rgba(245,158,11,0.3)]';
+                icon = '<svg class="w-5 h-5 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>';
+            }
+
+            toast.className = `toast-enter flex items-center gap-3 px-4 py-3 rounded-xl border ${bgColor} min-w-[300px] z-50`;
+            toast.innerHTML = `
+                ${icon}
+                <div class="flex-1">
+                    <p class="text-sm font-medium leading-tight">${message}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-white/70 hover:text-white transition focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            `;
+            
+            container.appendChild(toast);
+
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(10px)';
+                    toast.style.transition = 'all 0.3s ease';
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 4000);
+        }
+
+        // --- 2. Interactive "Ketuk Palu" Decisions ---
+        function handleDecision(btnElement, decisionName, action) {
+            const wrapper = btnElement.parentElement;
+            const buttons = wrapper.querySelectorAll('button');
+            const card = wrapper.parentElement;
+            
+            // Disable all buttons in this decision block
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('cursor-not-allowed');
+                btn.classList.remove('hover:-translate-y-1', 'hover:bg-accent'); // remove hovers
+            });
+
+            if (action === 'approve') {
+                // Style approved button
+                btnElement.innerHTML = '<span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Disetujui</span>';
+                btnElement.className = "text-xs font-bold px-4 py-1.5 bg-success/20 text-success rounded-lg border border-success/50 cursor-not-allowed";
+                
+                // Dim the other button
+                buttons[1].className = "text-xs font-semibold px-4 py-1.5 bg-slate-800 text-slate-500 rounded-lg border border-slate-700 cursor-not-allowed opacity-50";
+                
+                // Style the card
+                card.classList.add('border-success/30', 'bg-slate-800/50');
+                
+                showToast(`Keputusan "${decisionName}" telah Disetujui!`, 'success');
+            } else if (action === 'delay') {
+                // Style delayed button
+                btnElement.innerHTML = '<span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Ditunda</span>';
+                btnElement.className = "text-xs font-bold px-4 py-1.5 bg-warning/20 text-warning rounded-lg border border-warning/50 cursor-not-allowed";
+                
+                // Dim the other button
+                buttons[0].className = "text-xs font-semibold px-4 py-1.5 bg-slate-800 text-slate-500 rounded-lg border border-slate-700 cursor-not-allowed opacity-50";
+                
+                // Style the card
+                card.classList.add('border-warning/30');
+
+                showToast(`Keputusan "${decisionName}" Ditunda.`, 'warning');
+            }
+        }
+
+        // --- 3. Action Item Tracker Filter ---
+        function filterTable(status, btnElement) {
+            // Update active button styling
+            const allBtns = document.querySelectorAll('.filter-btn');
+            allBtns.forEach(btn => {
+                btn.classList.remove('bg-slate-700', 'text-white', 'active');
+                btn.classList.add('text-slate-400');
+            });
+            btnElement.classList.remove('text-slate-400');
+            btnElement.classList.add('bg-slate-700', 'text-white', 'active');
+
+            // Filter rows with animation
+            const rows = document.querySelectorAll('.task-row');
+            rows.forEach(row => {
+                if(status === 'all' || row.dataset.status === status) {
+                    row.style.display = 'table-row';
+                    row.classList.add('animate-fade-in');
+                } else {
+                    row.style.display = 'none';
+                    row.classList.remove('animate-fade-in');
+                }
+            });
+        }
+
+        // --- 4. Sync / Refresh Data Simulation ---
+        let revChartInstance, arChartInstance;
+
+        function simulateSync() {
+            const icon = document.getElementById('icon-sync');
+            const btn = document.getElementById('btn-sync');
+            
+            // Add spinning animation
+            icon.classList.add('animate-spin', 'text-cyan');
+            btn.disabled = true;
+
+            showToast('Menyinkronkan data dengan sistem pusat...', 'warning');
+
+            // Simulate network delay
+            setTimeout(() => {
+                icon.classList.remove('animate-spin', 'text-cyan');
+                btn.disabled = false;
+                
+                // Minor dynamic update for demo (Updating AR from 2M to 2.1M)
+                document.getElementById('val-ar').innerText = "~63% Tertagih";
+                document.getElementById('val-revenue').innerText = "Rp 2.258 M";
+                
+                // Update Charts slightly to show dynamic behavior
+                if(revChartInstance) {
+                    revChartInstance.data.datasets[0].data[0] = 2.258;
+                    revChartInstance.update();
+                }
+                if(arChartInstance) {
+                    arChartInstance.data.datasets[0].data = [2.1, 1.2]; // Updated data
+                    arChartInstance.update();
+                }
+
+                showToast('Sinkronisasi data berhasil! Dashboard mutakhir.', 'success');
+            }, 1500);
+        }
+
+        // --- 5. Chart.js Initialization ---
+        document.addEventListener('DOMContentLoaded', function() {
+            Chart.defaults.color = '#94a3b8';
+            Chart.defaults.font.family = "'Inter', sans-serif";
+
+            // Revenue Bar Chart
+            const ctxRev = document.getElementById('revenueChart').getContext('2d');
+            revChartInstance = new Chart(ctxRev, {
+                type: 'bar',
+                data: {
+                    labels: ['Realisasi', 'Target'],
+                    datasets: [{
+                        label: 'Revenue (Miliar)',
+                        data: [2.158, 11],
+                        backgroundColor: ['#10B981', '#334155'],
+                        borderRadius: 4,
+                        barThickness: 30
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) { return 'Rp ' + context.raw + ' Miliar'; }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { color: '#334155', drawBorder: false }, max: 11 },
+                        y: { grid: { display: false, drawBorder: false } }
+                    }
+                }
+            });
+
+            // Outstanding AR Doughnut Chart
+            const ctxAR = document.getElementById('arChart').getContext('2d');
+            arChartInstance = new Chart(ctxAR, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tertagih', 'Sisa'],
+                    datasets: [{
+                        data: [2, 1.3],
+                        backgroundColor: ['#10B981', '#F43F5E'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
