@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>International Student Guidebook - PPMA Indonesia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #c62828; /* Indonesia Red */
+      --primary-hover: #b71c1c;
+      --secondary-color: #fef2f2;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --bg-main: #f9fafb;
+      --bg-card: #ffffff;
+      --border-color: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 320px;
+      background-color: var(--bg-card);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      background: var(--bg-card);
+      z-index: 10;
+    }
+
+    .sidebar-header h1 {
+      font-size: 1.1rem;
+      color: var(--primary-color);
+      margin: 0;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .sidebar-header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 4px 0 0 0;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding: 12px 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li a {
+      display: flex;
+      align-items: center;
+      padding: 10px 24px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-nav li a:hover {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+    }
+
+    .sidebar-nav li a .chapter-num {
+      font-size: 0.8rem;
+      background: var(--bg-main);
+      color: var(--text-muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 40px;
+      scroll-behavior: smooth;
+    }
+
+    .content-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      padding: 48px 56px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Typography inside content */
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 0;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      scroll-margin-top: 40px;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: var(--text-main);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    p {
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    ul, ol {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Alert / Callout Boxes */
+    .callout {
+      background-color: var(--secondary-color);
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+
+    .callout h4 {
+      margin: 0 0 8px 0;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: #f3f4f6;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column;
+        overflow: auto;
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        max-height: 300px;
+      }
+      .main-content {
+        padding: 20px;
+      }
+      .content-wrapper {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Student Guidebook</h1>
+      <p>PPMA Indonesia</p>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="#ch01"><span class="chapter-num">01</span> Welcome to Indonesia</a></li>
+      <li><a href="#ch02"><span class="chapter-num">02</span> About Indonesia</a></li>
+      <li><a href="#ch03"><span class="chapter-num">03</span> Scholarship & Admission</a></li>
+      <li><a href="#ch04"><span class="chapter-num">04</span> Before You Depart</a></li>
+      <li><a href="#ch05"><span class="chapter-num">05</span> Arriving in Indonesia</a></li>
+      <li><a href="#ch06"><span class="chapter-num">06</span> What to Do First</a></li>
+      <li><a href="#ch07"><span class="chapter-num">07</span> Academic Life</a></li>
+      <li><a href="#ch08"><span class="chapter-num">08</span> Code of Conduct</a></li>
+      <li><a href="#ch09"><span class="chapter-num">09</span> Money & Banking</a></li>
+      <li><a href="#ch10"><span class="chapter-num">10</span> Survival Tips</a></li>
+      <li><a href="#ch11"><span class="chapter-num">11</span> Travel & Transportation</a></li>
+      <li><a href="#ch12"><span class="chapter-num">12</span> Important Contacts</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="content-wrapper">
+      
+      <h1 class="page-title">International Student Guidebook</h1>
+      <div class="page-subtitle">
+        Everything You Need to Know About Studying in Indonesia<br>
+        <strong>PUSAT PENGELOLAAN MAHASISWA ASING (PPMA)</strong><br>
+        Ministry of Education, Culture, Research and Technology | Republic of Indonesia<br>
+        <a href="https://ppma.kemdikbud.go.id" target="_blank" style="color: var(--primary-color);">ppma.kemdikbud.go.id</a>
+      </div>
+
+      <section id="ch01">
+        <h2>01. Welcome to Indonesia — Why Choose Indonesia?</h2>
+        <h3>A World of Opportunity</h3>
+        <p>Indonesia is one of Southeast Asia's fastest-growing economies and a rising force in global education. With more than 270 million people, thousands of islands, and hundreds of cultures, studying in Indonesia offers an experience unlike anywhere else in the world.</p>
+        
+        <h3>Top Reasons to Study in Indonesia</h3>
+        <ul>
+          <li><strong>🌍 Strategic Location:</strong> Indonesia sits at the heart of Southeast Asia, giving you access to a dynamic, interconnected region that is central to global trade, diplomacy, and innovation.</li>
+          <li><strong>🎓 Quality Higher Education:</strong> Indonesian universities are consistently rising in global rankings, offering internationally recognized degrees across sciences, technology, humanities, social sciences, and arts.</li>
+          <li><strong>💰 Affordable Cost of Living:</strong> Compared to universities in Europe, North America, or Australia, the cost of living in Indonesia is significantly lower — from accommodation and food to transportation and recreation.</li>
+          <li><strong>🤝 Government Scholarship Support:</strong> The Indonesian Government, through Pusat Pengelolaan Mahasiswa Asing (PPMA) and its partner ministries, offers comprehensive scholarship packages covering tuition, living allowances, insurance, research support, and more.</li>
+          <li><strong>🌺 Rich Cultural Diversity:</strong> Indonesia is home to over 700 living languages and hundreds of ethnic groups. Studying here means immersing yourself in one of the world's most diverse cultural landscapes.</li>
+          <li><strong>🗣️ Learn Bahasa Indonesia:</strong> Bahasa Indonesia is one of the world's most widely spoken languages. Mastering it opens doors to a community of over 260 million speakers across Southeast Asia.</li>
+          <li><strong>🌿 Natural Beauty:</strong> From active volcanoes and tropical rainforests to pristine beaches and ancient temples, Indonesia's natural and cultural heritage is unmatched.</li>
+        </ul>
+
+        <div class="callout">
+          <h4>💡 Did You Know?</h4>
+          <ul>
+            <li>Indonesia is the world's largest archipelago, consisting of more than 17,000 islands.</li>
+            <li>It is the 4th most populous country in the world with over 270 million people.</li>
+            <li>Indonesia is a founding member of ASEAN and a G20 economy.</li>
+            <li>Bahasa Indonesia is spoken by over 260 million people, making it one of the most spoken languages globally.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="ch02">
+        <h2>02. About Indonesia — Geography, Culture, People & Language</h2>
+        <h3>Geography</h3>
+        <p>Indonesia (officially, the Republic of Indonesia) is the world's largest archipelagic country, located in Southeast Asia between the Indian and Pacific Oceans. Stretching from Sabang in the northwest to Merauke in the east, Indonesia spans over 5,000 km. The country consists of five main islands — Sumatra, Java, Kalimantan, Sulawesi, and Papua — plus thousands of smaller islands, and shares land borders with Malaysia, Papua New Guinea, and Timor-Leste.</p>
+        
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Key Facts</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Capital City</strong></td>
+                <td>Jakarta (New capital: Nusantara, East Kalimantan)</td>
+              </tr>
+              <tr>
+                <td><strong>Official Language</strong></td>
+                <td>Bahasa Indonesia</td>
+              </tr>
+              <tr>
+                <td><strong>Population</strong></td>
+                <td>~275 million (4th largest globally)</td>
+              </tr>
+              <tr>
+                <td><strong>Total Islands</strong></td>
+                <td>17,000+ islands</td>
+              </tr>
+              <tr>
+                <td><strong>Time Zones</strong></td>
+                <td>WIB (UTC+7), WITA (UTC+8), WIT (UTC+9)</td>
+              </tr>
+              <tr>
+                <td><strong>Currency</strong></td>
+                <td>Indonesian Rupiah (IDR / Rp)</td>
+              </tr>
+              <tr>
+                <td><strong>Government</strong></td>
+                <td>Presidential Republic</td>
+              </tr>
+              <tr>
+                <td><strong>Independence Day</strong></td>
+                <td>17 August 1945</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="ch03">
+        <h2>03. Your Scholarship & Admission — How PPMA Works</h2>
+        <h3>Admission Steps & Processes</h3>
+        <p>The standard steps for application processing and university placement typically include:</p>
+        <ol start="5">
+          <li>Academic screening by the university's study program</li>
+          <li>Interview and/or psychometric assessment (online)</li>
+          <li>Plenary session and placement decision (Clearing House)</li>
+          <li>Issuance of Letter of Acceptance (LoA)</li>
+          <li>Acceptance confirmation by applicant</li>
+          <li>Study permit, student visa, and immigration processing</li>
+          <li>Re-registration at the host university</li>
+          <li>Arrival, orientation, and BIPA program</li>
+        </ol>
+
+        <h3>Required Documents</h3>
+        <ol>
+          <li>Completed online application form</li>
+          <li>Valid passport</li>
+          <li>Last educational diploma / certificate</li>
+          <li>Official academic transcripts</li>
+          <li>Recent passport-size photograph</li>
+          <li>Recommendation letter(s)</li>
+          <li>Motivation letter or study plan</li>
+          <li>Language proficiency certificate (if required by the study program)</li>
+          <li>Official translated documents (if originals are not in Indonesian or English)</li>
+          <li>Additional documents as required by your scholarship type or study program</li>
+        </ol>
+
+        <div class="callout">
+          <h4>⚠️ Important</h4>
+          <ul>
+            <li>All documents must be submitted through the official PPMA portal. Submissions outside the portal will not be processed.</li>
+            <li>Documents not in Indonesian or English must be accompanied by a certified/sworn translation.</li>
+            <li>Incomplete applications will not proceed to the next selection stage.</li>
+            <li>Applicants are responsible for the authenticity of all submitted documents.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="ch04">
+        <h2>04. Before You Depart — Pre-Departure Checklist</h2>
+        <h3>Documents to Prepare</h3>
+        <ul>
+          <li>Passport (valid for at least 18 months from your travel date)</li>
+          <li>Student Visa / Telex Visa — applied for at the Indonesian Embassy in your country before departure</li>
+          <li>Letter of Acceptance (LoA) from your host university</li>
+          <li>Study Permit (Izin Belajar) — PPMA/KUI will assist you after LoA is issued</li>
+          <li>Scholarship award letter (if applicable)</li>
+          <li>Health insurance certificate</li>
+          <li>Certified copies of academic certificates and transcripts</li>
+          <li>Minimum 6 recent passport-size photographs</li>
+          <li>Medical fitness certificate from a licensed physician</li>
+        </ul>
+
+        <h3>Financial Preparation</h3>
+        <p>Even if you receive a full scholarship, you should arrive with some personal funds for the initial days — before your first living allowance is disbursed. We recommend having at least USD 200–300 in cash (preferably USD or your country's currency) upon arrival. Exchange it to Indonesian Rupiah (IDR) upon arrival at the airport or at a reputable money changer.</p>
+
+        <h3>Health Preparation</h3>
+        <ul>
+          <li>Complete any required vaccinations (check current requirements with the Indonesian Embassy and WHO recommendations).</li>
+          <li>Bring a sufficient personal supply of any prescription medications — ensure they are legal in Indonesia.</li>
+          <li>Obtain a copy of your medical records or a health summary from your doctor.</li>
+          <li>Purchase international health insurance if your scholarship does not cover the pre-arrival period.</li>
+        </ul>
+
+        <h3>What to Pack</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Recommended Items</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Clothing</strong></td>
+                <td>Light cotton clothing (tropical climate). Modest attire is recommended for campus and public places. Bring formal attire for academic occasions. Comfortable walking shoes.</td>
+              </tr>
+              <tr>
+                <td><strong>Electronics</strong></td>
+                <td>Universal power adapter (Indonesia uses Type C/F plugs, 220V). Laptop. Power bank.</td>
+              </tr>
+              <tr>
+                <td><strong>Personal Care</strong></td>
+                <td>Your preferred toiletries (basic items are available locally). Prescription medications with a doctor's note.</td>
+              </tr>
+              <tr>
+                <td><strong>Documents</strong></td>
+                <td>Physical copies of all key documents in a waterproof folder.</td>
+              </tr>
+              <tr>
+                <td><strong>Money</strong></td>
+                <td>Some USD cash + debit/credit cards that work internationally (Visa/Mastercard widely accepted).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="ch05">
+        <h2>05. Arriving in Indonesia — Immigration & First Steps</h2>
+        <h3>Student Visa (Telex Visa)</h3>
+        <p>Before traveling to Indonesia, you must apply for a student visa (Telex Visa) at the Indonesian Embassy or Consulate in your home country. Your host university's International Office (KUI) and PPMA will provide you with the required supporting documents (LoA, study permit recommendation, guarantee letter, etc.) to complete the visa application.</p>
+        
+        <h3>At the Airport</h3>
+        <ol>
+          <li>Proceed to the Immigration counter. Present your passport, student visa, and LoA.</li>
+          <li>Complete the immigration card provided on your flight or at the airport.</li>
+          <li>Collect your luggage from the designated baggage belt.</li>
+        </ol>
+      </section>
+
+      <section id="ch06">
+        <h2>06. What to Do First — Setting Up Your Life in Indonesia</h2>
+        <h3>Accommodation (Kost)</h3>
+        <p>For off-campus housing, a private room rental (kost) is the most common option. Monthly rates vary significantly by city and room quality. Your KUI and fellow international students can help you find reputable options. Always inspect the room before signing a rental agreement.</p>
+      </section>
+
+      <section id="ch07">
+        <h2>07. Academic Life — Studying at Your University</h2>
+        <h3>Academic Calendar</h3>
+        <p>The Indonesian university academic year is divided into two semesters. Each semester consists of 16 weeks of classes, plus exam periods. The academic calendar varies by university — your KUI will provide you with the official schedule.</p>
+
+        <h3>Credit System (SKS — Sistem Kredit Semester)</h3>
+        <p>Indonesian universities use the SKS (Semester Credit Unit) system, similar to the credit hour system used internationally. One SKS corresponds to approximately 50 minutes of classroom time per week per semester. Minimum graduation requirements vary by degree level:</p>
+        <ul>
+          <li><strong>Bachelor's (S1)</strong> — typically 144 SKS over 4 years (8 semesters)</li>
+          <li><strong>Master's (S2)</strong> — typically 36–42 SKS over 2 years (4 semesters)</li>
+          <li><strong>Doctoral (S3)</strong> — typically 42–52 SKS over 3 years (6 semesters)</li>
+        </ul>
+
+        <h3>Language of Instruction</h3>
+        <p>Most undergraduate programs are conducted in Bahasa Indonesia. International (English-medium) programs are available at graduate level in many partner universities. This is why the BIPA program is an important first step — to ensure you can participate effectively in your academic program.</p>
+
+        <h3>Academic Advisor</h3>
+        <p>Upon registration, you will be assigned an academic advisor <em>(dosen pembimbing akademik)</em
