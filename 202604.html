@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Read: Evaluasi OKR IT Solution (April 2026)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+brand: {
+dark: '#1E293B',
+light: '#F8FAFC',
+blue: '#2563EB',
+orange: '#F97316',
+yellow: '#EAB308',
+red: '#EF4444',
+green: '#22C55E'
+}
+},
+fontFamily: {
+sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+}
+}
+}
+}
+</script>
+<style>
+body { background-color: #F8FAFC; color: #1E293B; }
+.chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 50vh; max-height: 450px; }
+.gauge-container { position: relative; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; height: 30vh; max-height: 300px; }
+.timeline-line { position: absolute; left: 1rem; top: 0; bottom: 0; width: 2px; background-color: #E2E8F0; z-index: 0; }
+@media (min-width: 768px) { .timeline-line { left: 50%; transform: translateX(-50%); } }
+</style>
+</head>
+<body class="antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center flex-wrap gap-4">
+<h1 class="text-xl font-bold text-brand-dark tracking-tight">IT Solution OKR <span class="text-brand-blue">April 2026</span></h1>
+<div class="flex items-center gap-3">
+<span class="text-sm font-medium text-gray-500">PIC: Bagus Fibrianto & Nizar</span>
+<div class="px-4 py-1.5 rounded-full bg-brand-yellow/10 border border-brand-yellow text-brand-yellow font-bold text-sm flex items-center gap-2 shadow-sm">
+<span>🟡</span> KUNING (49.42%)
+</div>
+</div>
+</div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+<section class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+<div class="bg-gradient-to-r from-brand-blue to-brand-orange p-1 h-2 w-full"></div>
+<div class="p-8 md:p-10">
+<h2 class="text-3xl font-extrabold text-brand-dark mb-6 tracking-tight">1. Executive Summary & Business Delta</h2>
+<p class="text-lg leading-relaxed text-gray-700 mb-8">
+Memasuki awal Q2 (April 2026), performa IT Solution tertahan di level <strong>49.42%</strong>. Transisi menuju <em>Hyper-Productivity</em> via <em>AI Adoption</em> menunjukkan traksi positif (61.71%), didorong oleh keberhasilan implementasi Vibe Coding di proyek SMB. Namun, momentum ini terancam oleh kemandekan di sektor <em>Organizational Resilience</em> (22.22%) dan deviasi krusial pada Delivery Produk Top-Tier. Keterlambatan QRIS v2 memicu risiko hilangnya potensi revenue SMT 1, diperparah oleh terhambatnya peningkatan kapasitas tim akibat tertahannya budget sertifikasi.
+</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-brand-light rounded-xl p-6 border border-gray-100 text-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-brand-blue"></div>
+<p class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Total Progres OKR</p>
+<div class="gauge-container">
+<canvas id="gaugeChart"></canvas>
+</div>
+<p class="text-2xl font-bold text-brand-dark mt-2">49.42%</p>
+</div>
+<div class="bg-brand-light rounded-xl p-6 border border-gray-100 flex flex-col justify-center">
+<div class="text-4xl mb-4">🚀</div>
+<h3 class="text-xl font-bold text-brand-dark mb-2">Traksi Positif</h3>
+<p class="text-gray-600">Keberhasilan adopsi <strong>Vibe Coding</strong> di proyek SMB mencapai 92.86%, berpotensi menekan biaya development secara signifikan.</p>
+</div>
+<div class="bg-red-50 rounded-xl p-6 border border-red-100 flex flex-col justify-center">
+<div class="text-4xl mb-4">⚠️</div>
+<h3 class="text-xl font-bold text-brand-red mb-2">Risiko Krusial</h3>
+<p class="text-red-700">Kemandekan pelatihan (0%) dan keterlambatan rilis QRIS v2 mengancam target SMT 1. Dibutuhkan intervensi segera.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="space-y-8">
+<div class="text-center max-w-3xl mx-auto">
+<h2 class="text-3xl font-extrabold text-brand-dark mb-4">2. OKR Health Check (Data-Driven)</h2>
+<p class="text-gray-600 text-lg">
+Visualisasi di bawah ini membedah pencapaian 3 Obyektif Utama OKR terhadap target SMT 1 (100%). Performa menunjukkan ketimpangan yang jelas antara adopsi teknologi dan kesiapan sumber daya manusia.
+</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8">
+<h3 class="text-xl font-bold text-brand-dark mb-4 text-center">Pencapaian Obyektif Utama</h3>
+<p class="text-sm text-gray-500 text-center mb-6">Membandingkan realisasi progres dari tiga pilar utama OKR. <em>Organizational Resilience</em> menjadi area paling tertinggal.</p>
+<div class="chart-container">
+<canvas id="mainOkrChart"></canvas>
+</div>
+</div>
+
+<div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8">
+<h3 class="text-xl font-bold text-brand-dark mb-4 text-center">Distribusi Sub-Metrik Kunci</h3>
+<p class="text-sm text-gray-500 text-center mb-6">Analisis mendalam pada inisiatif spesifik. Keberhasilan Vibe Coding berbanding terbalik dengan mandeknya Sertifikasi dan implementasi KPI.</p>
+<div class="chart-container">
+<canvas id="subMetricRadarChart"></canvas>
+</div>
+</div>
+</div>
+</section>
+
+<section class="bg-brand-dark rounded-2xl shadow-xl overflow-hidden mt-12">
+<div class="p-8 md:p-10">
+<div class="mb-10">
+<h2 class="text-3xl font-extrabold text-white mb-4">3. Critical Blockers & Dependency Map</h2>
+<p class="text-gray-300 text-lg max-w-3xl">
+Hambatan lintas divisi yang membutuhkan eskalasi dan penyelesaian segera. Blockers ini secara langsung mengancam pencapaian *Delivery* dan *Organizational Resilience*.
+</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white rounded-xl p-6 shadow-lg border-t-4 border-brand-red flex flex-col h-full transform transition hover:-translate-y-1">
+<div class="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-4 shadow-inner">💰</div>
+<h3 class="text-xl font-bold text-brand-dark mb-2">Budget Sertifikasi (URGEN)</h3>
+<p class="text-sm text-gray-600 mb-4 flex-grow">Penundaan persetujuan budget menahan pencapaian OKR <em>Organizational Resilience</em> di angka 0% dan berisiko menurunkan kualitas delivery jangka panjang.</p>
+<div class="bg-gray-50 p-4 rounded-lg mt-auto border border-gray-200">
+<p class="text-xs font-bold text-gray-500 uppercase mb-1">Cross-Division Need</p>
+<p class="text-sm font-semibold text-brand-blue">Manajemen / HCM</p>
+<p class="text-sm text-gray-700 mt-2"><strong>Aksi:</strong> Approval segera 644 USD untuk Exam PM & jadwal training Anjar.</p>
+</div>
+</div>
+
+<div class="bg-white rounded-xl p-6 shadow-lg border-t-4 border-brand-orange flex flex-col h-full transform transition hover:-translate-y-1">
+<div class="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-4 shadow-inner">🔍</div>
+<h3 class="text-xl font-bold text-brand-dark mb-2">Bottleneck QA QRIS v2</h3>
+<p class="text-sm text-gray-600 mb-4 flex-grow">Blind spot pada scope settlement menyebabkan produk tertahan di fase testing. Gagal rilis di bulan April dan kehilangan momentum Q2.</p>
+<div class="bg-gray-50 p-4 rounded-lg mt-auto border border-gray-200">
+<p class="text-xs font-bold text-gray-500 uppercase mb-1">Cross-Division Need</p>
+<p class="text-sm font-semibold text-brand-orange">Tim QA & SA</p>
+<p class="text-sm text-gray-700 mt-2"><strong>Aksi:</strong> QA adopsi Vibe Coding untuk test case; SA/BE eksekusi cron settlement minggu ini.</p>
+</div>
+</div>
+
+<div class="bg-white rounded-xl p-6 shadow-lg border-t-4 border-brand-yellow flex flex-col h-full transform transition hover:-translate-y-1">
+<div class="bg-yellow-100 w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-4 shadow-inner">📊</div>
+<h3 class="text-xl font-bold text-brand-dark mb-2">Data KPI Fiktif</h3>
+<p class="text-sm text-gray-600 mb-4 flex-grow">Evaluasi performa berisiko manipulatif karena utilitas dan pembaruan task di Redmine (khususnya FE & PM) tidak tertib.</p>
+<div class="bg-gray-50 p-4 rounded-lg mt-auto border border-gray-200">
+<p class="text-xs font-bold text-gray-500 uppercase mb-1">Cross-Division Need</p>
+<p class="text-sm font-semibold text-brand-yellow">Para Lead Divisi</p>
+<p class="text-sm text-gray-700 mt-2"><strong>Aksi:</strong> Tegakkan disiplin pengisian Redmine secara paksa sebagai acuan utama.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="mt-12">
+<div class="bg-white rounded-2xl shadow-md border border-gray-100 p-8 md:p-10">
+<div class="flex items-center gap-4 mb-8">
+<div class="text-4xl">⚖️</div>
+<div>
+<h2 class="text-3xl font-extrabold text-brand-dark">4. Proposed Decisions ("Ketuk Palu")</h2>
+<p class="text-gray-600 mt-1">Keputusan mutlak yang harus disahkan dalam rapat ini untuk membuka bottleneck.</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="p-5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-md transition duration-200 flex gap-4 items-start">
+<div class="bg-brand-blue text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0 mt-0.5">A</div>
+<div>
+<h4 class="font-bold text-lg text-brand-dark">Pencairan Budget Pelatihan (644 USD)</h4>
+<p class="text-gray-600 mt-1">Approval mutlak untuk tim Project Manager dan penugasan HCM mengeksekusi pelatihan leadership di bulan Mei.</p>
+</div>
+</div>
+<div class="p-5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-md transition duration-200 flex gap-4 items-start">
+<div class="bg-brand-orange text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0 mt-0.5">B</div>
+<div>
+<h4 class="font-bold text-lg text-brand-dark">Alokasi Waktu Dedicated QA & SA</h4>
+<p class="text-gray-600 mt-1">Persetujuan kolaborasi paksa antara QA, SA, dan BE untuk menyelesaikan pengujian fitur settlement QRIS v2 minggu ini tanpa interupsi task lain.</p>
+</div>
+</div>
+<div class="p-5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-md transition duration-200 flex gap-4 items-start">
+<div class="bg-brand-yellow text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0 mt-0.5">C</div>
+<div>
+<h4 class="font-bold text-lg text-brand-dark">Pemaksaan Disiplin Redmine</h4>
+<p class="text-gray-600 mt-1">Penerapan aturan wajib update harian. Penolakan disiplin berakibat KPI "Task Diselesaikan Tepat Waktu" dihitung 0%.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="mt-12 bg-white rounded-2xl shadow-md border border-gray-100 p-8 md:p-10">
+<h2 class="text-3xl font-extrabold text-brand-dark mb-2 text-center">6. Tactical Moves (Next 14 Days)</h2>
+<p class="text-gray-600 text-center mb-10 max-w-2xl mx-auto">Rencana aksi taktis berfokus pada perbaikan status OKR Kuning dan Merah dengan prinsip High-Impact, Low-Effort.</p>
+
+<div class="relative py-8">
+<div class="timeline-line"></div>
+
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-center w-full mb-12">
+<div class="md:w-5/12 mb-4 md:mb-0 md:text-right pr-0 md:pr-8">
+<h3 class="text-xl font-bold text-brand-dark">Eksekusi Pembayaran Sertifikasi</h3>
+<p class="text-gray-600 mt-2 bg-white p-4 rounded-lg shadow-sm border border-gray-100 inline-block text-left md:text-right">HCM memproses pendaftaran ujian PM & menetapkan tanggal leadership training agar OKR bergerak dari 0%.</p>
+</div>
+<div class="w-10 h-10 bg-brand-red text-white rounded-full flex items-center justify-center font-bold shadow-lg border-4 border-white z-10 relative">1</div>
+<div class="md:w-5/12 pl-0 md:pl-8 mt-4 md:mt-0"></div>
+</div>
+
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-center w-full mb-12">
+<div class="md:w-5/12 mb-4 md:mb-0 md:text-right pr-0 md:pr-8 order-3 md:order-1"></div>
+<div class="w-10 h-10 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold shadow-lg border-4 border-white z-10 relative order-2">2</div>
+<div class="md:w-5/12 pl-0 md:pl-8 mt-4 md:mt-0 order-1 md:order-3">
+<h3 class="text-xl font-bold text-brand-dark">Amankan Rilis QRIS v2</h3>
+<p class="text-gray-600 mt-2 bg-white p-4 rounded-lg shadow-sm border border-gray-100 inline-block">Paksa QA terapkan testing tools (sesuai riset) dan kawal eksekusi cron settlement. Target Ready to Sell W2 Mei.</p>
+</div>
+</div>
+
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-center w-full">
+<div class="md:w-5/12 mb-4 md:mb-0 md:text-right pr-0 md:pr-8">
+<h3 class="text-xl font-bold text-brand-dark">Eksekusi Disiplin Redmine</h3>
+<p class="text-gray-600 mt-2 bg-white p-4 rounded-lg shadow-sm border border-gray-100 inline-block text-left md:text-right">Terapkan self-regulation pembaruan task. Sebar kuisioner pemahaman proyek untuk deteksi kelemahan transfer knowledge.</p>
+</div>
+<div class="w-10 h-10 bg-brand-yellow text-white rounded-full flex items-center justify-center font-bold shadow-lg border-4 border-white z-10 relative">3</div>
+<div class="md:w-5/12 pl-0 md:pl-8 mt-4 md:mt-0"></div>
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+function wrapLabel(label) {
+if (label.length <= 16) return label;
+const words = label.split(' ');
+let lines = [];
+let currentLine = '';
+words.forEach(word => {
+if ((currentLine + word).length > 16) {
+if (currentLine) lines.push(currentLine.trim());
+currentLine = word + ' ';
+} else {
+currentLine += word + ' ';
+}
+});
+if (currentLine) lines.push(currentLine.trim());
+return lines;
+}
+
+const customTooltip = {
+callbacks: {
+title: function(tooltipItems) {
+const item = tooltipItems[0];
+let label = item.chart.data.labels[item.dataIndex];
+if (Array.isArray(label)) {
+return label.join(' ');
+} else {
+return label;
+}
+}
+}
+};
+
+const gaugeCtx = document.getElementById('gaugeChart').getContext('2d');
+new Chart(gaugeCtx, {
+type: 'doughnut',
+data: {
+labels: ['Tercapai', 'Kekurangan'],
+datasets: [{
+data: [49.42, 50.58],
+backgroundColor: ['#EAB308', '#E2E8F0'],
+borderWidth: 0,
+cutout: '75%',
+circumference: 180,
+rotation: -90
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+plugins: {
+legend: { display: false },
+tooltip: { enabled: false }
+}
+}
+});
+
+const mainCtx = document.getElementById('mainOkrChart').getContext('2d');
+new Chart(mainCtx, {
+type: 'bar',
+data: {
+labels: [
+wrapLabel('Objective 1: Hyper-Productivity via AI'),
+wrapLabel('Objective 2: Strategic Product Delivery'),
+wrapLabel('Objective 3: Organizational Resilience')
+],
+datasets: [{
+label: 'Realisasi (%)',
+data: [61.71, 64.33, 22.22],
+backgroundColor: [
+'#2563EB',
+'#F97316',
+'#EF4444'
+],
+borderRadius: 6
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+indexAxis: 'y',
+scales: {
+x: {
+max: 100,
+grid: { color: '#F1F5F9' },
+title: { display: true, text: 'Persentase (%)' }
+},
+y: {
+grid: { display: false }
+}
+},
+plugins: {
+legend: { display: false },
+tooltip: customTooltip
+}
+}
+});
+
+const radarCtx = document.getElementById('subMetricRadarChart').getContext('2d');
+new Chart(radarCtx, {
+type: 'radar',
+data: {
+labels: [
+wrapLabel('Vibe Coding Proyek SMB'),
+wrapLabel('Zero Critical Bugs QA'),
+wrapLabel('Rilis QRIS v2'),
+wrapLabel('On-Time Delivery Top-Tier'),
+wrapLabel('Realisasi Sertifikasi'),
+wrapLabel('Implementasi KPI Redmine')
+],
+datasets: [{
+label: 'Capaian Saat Ini',
+data: [92.86, 28, 76, 50, 0, 20],
+backgroundColor: 'rgba(37, 99, 235, 0.2)',
+borderColor: '#2563EB',
+pointBackgroundColor: '#F97316',
+pointBorderColor: '#fff',
+pointHoverBackgroundColor: '#fff',
+pointHoverBorderColor: '#F97316',
+borderWidth: 2
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+scales: {
+r: {
+angleLines: { color: '#E2E8F0' },
+grid: { color: '#E2E8F0' },
+pointLabels: {
+font: { size: 11, family: 'Inter, sans-serif' },
+color: '#475569'
+},
+ticks: {
+stepSize: 20,
+max: 100,
+min: 0,
+display: false
+}
+}
+},
+plugins: {
+legend: { display: false },
+tooltip: customTooltip
+}
+}
+});
+</script>
+
+<!--
+PALETTE: Vibrant Blues & Oranges (#2563EB, #F97316, #EAB308, #EF4444, #1E293B, #F8FAFC)
+PLAN SUMMARY: A data-driven pre-read dashboard. Section 1 hooks with the 49.42% gauge. Section 2 compares the 3 main OKRs (Bar) and details the sub-metrics breakdown (Radar). Section 3 outlines blockers using CSS grid cards. Section 4 presents clear decisions. Section 6 maps the next 14 days in a CSS timeline.
+VISUALIZATION CHOICES:
+- Overall Health -> Inform -> Chart.js Half-Doughnut Gauge -> Highlights single critical metric (49.42%). Confirmed NO SVG.
+- Main OKRs -> Compare -> Chart.js Horizontal Bar -> Best for comparing performance across long-labeled categories. Confirmed NO SVG.
+- Sub-metrics -> Organize/Compare -> Chart.js Radar Chart -> Excellent for spotting outliers in multivariate data (e.g. 92% vs 0%). Confirmed NO SVG.
+- Blockers & Tactics -> Organize/Timeline -> Tailwind CSS Cards & Timeline -> Structural representation without external libraries. Confirmed NO MERMAID JS.
+CONFIRMATION: Explicitly confirming that NEITHER Mermaid JS NOR SVG were used anywhere in the output within the HTML comments. All graphics utilize Canvas (Chart.js), Unicode, or styled HTML/CSS.
+-->
+</body>
+</html>
