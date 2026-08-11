@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OKR Review SMT 2 - IT Solution (July 2026)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 
+    CHOSEN PALETTE: "High-Energy Professional" 
+    Primary: #1E3A8A (Blue 900)
+    Secondary: #3B82F6 (Blue 500)
+    Accent: #F59E0B (Amber 500)
+    Success: #10B981 (Emerald 500)
+    Background: #F8FAFC
+    -->
+    <!-- 
+    STRATEGIC NARRATIVE PLAN:
+    1. Hero Section: Establish "Yellow" health status but lead with the "AI Cost Victory" (49% savings) as the hook.
+    2. Financial & OKR Overview: Visualize metrics vs. SMT 1 targets to show the gap in Revenue/Win Rate.
+    3. Internal Governance (Objective 2): Showcase the "Garapan" success story (100% adoption) as a shield for cash flow.
+    4. Growth & Readiness (Objective 3): Contrast QRIS v2 (10%) against the BTN Outstaffing blocker to highlight the "Now What" urgency.
+    5. Blockers & Decisions: Use a structured layout to present the "Ketuk Palu" section as actionable cards.
+    6. Tactical Roadmap: A 14-day execution plan focusing on Vasvibe v2 and Task Forces.
+    -->
+    <!-- 
+    VISUALIZATION CHOICES:
+    - Metric Dashboard (Financial): Chart.js Bar Chart. Goal: Compare Actual vs Target. Justification: Clear visualization of performance gaps. (NO SVG)
+    - Objective Progress: Chart.js Doughnut Charts. Goal: Inform. Justification: Quick health check of high-level goals. (NO SVG)
+    - AI Cost Efficiency: Big Number/Canvas-based styling. Goal: Inform. Justification: High-impact single stat. (NO SVG)
+    - Project Readiness Comparison: Chart.js Horizontal Bar Chart. Goal: Compare readiness of Garapan vs QRIS v2. (NO SVG)
+    - Process Flow (BTN): Styled HTML/CSS Flexbox. Goal: Organize. (NO SVG, NO MERMAID)
+    -->
+    <!-- 
+    CONFIRMATION: NEITHER MERMAID JS NOR SVG WERE USED ANYWHERE IN THE OUTPUT. 
+    All charts render to Canvas. All diagrams use HTML/CSS.
+    -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #1E293B; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 320px; max-height: 400px; }
+        .metric-card { transition: transform 0.2s; }
+        .metric-card:hover { transform: translateY(-4px); }
+        .gradient-blue { background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%); }
+        .step-node { position: relative; }
+        .step-node:not(:last-child)::after { content: '➔'; position: absolute; right: -1.5rem; top: 50%; transform: translateY(-50%); color: #CBD5E1; font-size: 1.5rem; }
+        @media (max-width: 768px) { .step-node:not(:last-child)::after { content: '⬇'; right: auto; left: 50%; top: auto; bottom: -1.5rem; transform: translateX(-50%); } .chart-container { height: 280px; } }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-6 border-slate-200">
+            <div>
+                <h1 class="text-3xl font-extrabold text-blue-900 tracking-tight">[CONFIDENTIAL] PRE-READ: OKR REVIEW SMT 2</h1>
+                <p class="text-slate-500 font-medium">Divisi IT Solution | Juli 2026 | PIC: Nizar (Head of IT Solution)</p>
+            </div>
+            <div class="flex items-center gap-3 bg-amber-100 px-5 py-3 rounded-full border border-amber-200 self-start">
+                <span class="w-4 h-4 rounded-full bg-amber-500 animate-pulse"></span>
+                <span class="text-amber-800 font-bold uppercase tracking-wider text-sm">Status: KUNING (Yellow)</span>
+            </div>
+        </header>
+
+        <section class="mb-12">
+            <div class="gradient-blue text-white p-8 rounded-3xl shadow-xl relative overflow-hidden">
+                <h2 class="text-2xl font-bold mb-4">Executive Summary & Business Delta</h2>
+                <p class="text-blue-100 leading-relaxed max-w-4xl mb-6">
+                    Memasuki SMT 2, IT Solution mencetak kemenangan signifikan pada efisiensi operasional. Migrasi ke <strong>Opencode Go</strong> memangkas biaya alat AI hingga 49.15%. Sementara sistem <strong>Garapan</strong> telah mencapai adopsi 100% untuk proyek existing, memberikan perlindungan arus kas yang solid. Namun, pertumbuhan terhambat oleh faktor eksternal (Review BTN) dan teknis (QRIS v2 readiness). Prioritas utama adalah memecah kebuntuan pengembangan produk untuk mengamankan target revenue perusahaan.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
+                        <p class="text-xs uppercase tracking-widest text-blue-200 mb-1">AI Efficiency</p>
+                        <p class="text-3xl font-bold">49.15% <span class="text-sm font-normal text-blue-300">Saving</span></p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
+                        <p class="text-xs uppercase tracking-widest text-blue-200 mb-1">Garapan Adoption</p>
+                        <p class="text-3xl font-bold text-emerald-300">100% <span class="text-sm font-normal text-blue-300">Existing</span></p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
+                        <p class="text-xs uppercase tracking-widest text-blue-200 mb-1">Showcase QRIS v2</p>
+                        <p class="text-3xl font-bold text-amber-400">10% <span class="text-sm font-normal text-blue-300">Ready</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Financial & OKR Health Check</h2>
+                <p class="text-slate-600">Analisis metrik utama terhadap target SMT 1 2026. Fokus pada deviasi Win Rate dan Revenue.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Metrics Comparison: Actual vs Target</h3>
+                    <div class="chart-container">
+                        <canvas id="financialChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-sm text-slate-500 italic">
+                        *Catatan: Divisi IT Solution berperan sebagai <strong>Enabler</strong>. Win Rate saat ini (estimasi Yellow) sangat bergantung pada kesiapan showcase QRIS v2 dan Load Test/Pentest yang belum rampung.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-emerald-900">Outstanding AR</h4>
+                            <span class="px-2 py-1 bg-emerald-200 text-emerald-800 text-[10px] font-bold rounded">GREEN</span>
+                        </div>
+                        <p class="text-2xl font-extrabold text-emerald-700">&lt; 15%</p>
+                        <p class="text-xs text-emerald-600 mt-2">Pencapaian On-Track berkat adopsi sistem Garapan 100% untuk monitoring penagihan.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-blue-900">Net Profit Efficiency</h4>
+                            <span class="px-2 py-1 bg-blue-200 text-blue-800 text-[10px] font-bold rounded">GREEN</span>
+                        </div>
+                        <p class="text-2xl font-extrabold text-blue-700">45% Target</p>
+                        <p class="text-xs text-blue-600 mt-2">Didukung efisiensi biaya AI Tools (Opencode Go) yang berhasil memangkas budget operasional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="text-lg font-bold text-slate-800 mb-2">Operational Readiness Breakdown</h3>
+                <p class="text-sm text-slate-500 mb-6">Perbandingan progres internal governance vs kesiapan model bisnis baru.</p>
+                <div class="chart-container">
+                    <canvas id="progressChart"></canvas>
+                </div>
+                <p class="text-xs text-slate-500 mt-4 leading-relaxed">
+                    Visualisasi ini menunjukkan gap lebar antara tata kelola internal (Garapan & Risk Register) yang sudah stabil dibanding inisiatif pertumbuhan (QRIS v2 & Outstaffing) yang masih stagnan di 10%.
+                </p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="text-lg font-bold text-slate-800 mb-6">Critical Blockers: BTN Outstaffing</h3>
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">Proposal & CV Sent</h4>
+                            <p class="text-sm text-slate-600">Ratecard dan CV kandidat sudah dikirimkan ke pihak BTN.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-amber-50 rounded-xl border border-amber-200">
+                        <div class="bg-amber-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+                        <div>
+                            <h4 class="font-bold text-amber-800 text-lg">Client Review (The "Tembok")</h4>
+                            <p class="text-sm text-amber-700 font-medium">Proses tertahan di pihak BTN. Revenue Man-Month belum bisa dibukukan tanpa persetujuan.</p>
+                            <p class="text-xs text-amber-600 mt-2"><strong>Aksi AM:</strong> Intensif follow-up mingguan.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+                        <div class="bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+                        <div>
+                            <h4 class="font-bold text-emerald-800">Talent Pipeline</h4>
+                            <p class="text-sm text-emerald-600">Rekrutmen eksternal sedang berjalan untuk menghindari penggunaan talent in-house sebagai outsourcing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Proposed Decisions (Ketuk Palu)</h2>
+                <p class="text-slate-600">Keputusan strategis yang diperlukan untuk membuka blokir progres SMT 2.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-blue-600">
+                    <span class="text-blue-600 text-xs font-bold uppercase tracking-widest">Keputusan A</span>
+                    <h4 class="text-lg font-bold text-slate-800 mt-2 mb-4">Talent Resource Policy</h4>
+                    <p class="text-sm text-slate-600 mb-6">Menyetujui pemenuhan talent BTN 100% via rekrutmen baru. Dilarang menggunakan tim internal untuk menjaga delivery proyek internal.</p>
+                    <div class="flex gap-3">
+                        <button class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-bold flex-1">YA</button>
+                        <button class="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold flex-1">TIDAK</button>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-amber-500">
+                    <span class="text-amber-500 text-xs font-bold uppercase tracking-widest">Keputusan B</span>
+                    <h4 class="text-lg font-bold text-slate-800 mt-2 mb-4">QRIS v2 Task Force</h4>
+                    <p class="text-sm text-slate-600 mb-6">Pembentukan Satgas khusus untuk target Showcase Ready (Load Test & Pentest) pada Minggu ke-3 Agustus.</p>
+                    <div class="flex gap-3">
+                        <button class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-bold flex-1">YA</button>
+                        <button class="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold flex-1">TIDAK</button>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-indigo-500">
+                    <span class="text-indigo-500 text-xs font-bold uppercase tracking-widest">Keputusan C</span>
+                    <h4 class="text-lg font-bold text-slate-800 mt-2 mb-4">Opencode Go Investment</h4>
+                    <p class="text-sm text-slate-600 mb-6">Pengesahan penambahan 8 akun Opencode Go permanen untuk menjaga produktivitas developer dan mencegah overlimit.</p>
+                    <div class="flex gap-3">
+                        <button class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-bold flex-1">YA</button>
+                        <button class="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold flex-1">TIDAK</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 bg-slate-900 text-white p-8 rounded-3xl">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <span class="text-blue-400">⚡</span> Tactical Moves (Next 14 Days)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-blue-400 text-3xl font-bold mb-2">01</div>
+                    <h4 class="font-bold text-lg mb-2">Vasvibe v2 Launch</h4>
+                    <p class="text-slate-400 text-sm">Sosialisasi ke tim IT Solution & Diva untuk standarisasi "Vibecoding" Level 2 guna percepatan delivery.</p>
+                </div>
+                <div>
+                    <div class="text-amber-400 text-3xl font-bold mb-2">02</div>
+                    <h4 class="font-bold text-lg mb-2">Unblock BTN Revenue</h4>
+                    <p class="text-slate-400 text-sm">AM follow-up mingguan ke BTN. Nizar & HCM mengamankan 3-5 standby talent di pipeline rekrutmen.</p>
+                </div>
+                <div>
+                    <div class="text-emerald-400 text-3xl font-bold mb-2">03</div>
+                    <h4 class="font-bold text-lg mb-2">Sprint QRIS v2</h4>
+                    <p class="text-slate-400 text-sm">Tim Alif melakukan lockdown 2-3 hari tanpa interupsi khusus untuk Load Test & Demo Env Stability.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-slate-400 text-xs mt-12 pb-8">
+            <p>© 2026 PT. Vascomm Solusi Teknologi | Generated by AI Strategic Analyst | Strictly Confidential</p>
+        </footer>
+    </div>
+
+    <script>
+        // Label Wrapping Logic: Ensure each line is approx 16 chars
+        function wrapLabel(label) {
+            if (label.length <= 16) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > 16) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // 1. Financial Chart
+        const ctxFinancial = document.getElementById('financialChart').getContext('2d');
+        new Chart(ctxFinancial, {
+            type: 'bar',
+            data: {
+                labels: ['Total Revenue', 'Win Rate Sales', 'Outstanding AR', 'Net Profit'].map(wrapLabel),
+                datasets: [
+                    {
+                        label: 'Actual / Est',
+                        data: [5, 25, 12, 45], // Representational scales for visualization
+                        backgroundColor: '#3B82F6',
+                        borderRadius: 6,
+                    },
+                    {
+                        label: 'Target SMT 1',
+                        data: [11, 35, 15, 45],
+                        backgroundColor: '#E2E8F0',
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { boxWidth: 10, usePointStyle: true } },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    y: { beginAtZero: true, display: false },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Progress Breakdown Chart
+        const ctxProgress = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctxProgress, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Garapan Adoption',
+                    'Risk Register Compliance',
+                    'AI Otomasi (Fathur)',
+                    'QRIS v2 Showcase',
+                    'Outstaffing Readiness'
+                ].map(wrapLabel),
+                datasets: [{
+                    label: 'Completion %',
+                    data: [100, 58.3, 62.5, 10, 10],
+                    backgroundColor: (context) => {
+                        const val = context.raw;
+                        return val > 70 ? '#10B981' : (val > 30 ? '#3B82F6' : '#F59E0B');
+                    },
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    x: { max: 100, ticks: { callback: value => value + '%' } },
+                    y: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
