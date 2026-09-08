@@ -47,8 +47,8 @@
 
     <!-- Palette: Vibrant Electric Tech (Hex: #3B82F6, #8B5CF6, #F59E0B, #10B981, #EF4444, #0F172A) -->
     <!-- Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this document. All visual elements use Canvas or structured HTML/CSS styling. -->
-    <!-- Narrative Plan: 1. Executive Banner & High-Level KPIs -> 2. OKR Realization & Token OPEX Savings -> 3. Business Penetration (QRIS v2 & BTN Outstaffing) -> 4. Risk & Blocker Matrix -> 5. Action Item Tracker & Proposed Decisions. -->
-    <!-- Visualizations Summary: 1. OKR Realization Breakdown (Horizontal Bar, Chart.js) -> 2. Token Cost Reduction & Status (Donut, Chart.js) -> 3. Outstaffing Readiness Pipeline (3D-like Mesh Scatter, Plotly Canvas) -> 4. Blocker Risk Index (Radar, Chart.js) -> 5. Workflow Diagram (Structured HTML/CSS). Confirming NO SVG. -->
+    <!-- Narrative Plan: 1. Executive Banner & High-Level KPIs -> 2. OKR Realization & Token OPEX Savings -> 3. Business Penetration (QRIS v2 & BTN Outstaffing) -> 4. Risk & Blocker Matrix (QA Load Test Bottleneck & BTN Client Dependency) -> 5. Action Item Tracker & Proposed Decisions. -->
+    <!-- Visualizations Summary: 1. OKR Realization Breakdown (Horizontal Bar, Chart.js) -> 2. Token Cost Reduction & Status (Donut, Chart.js) -> 3. Outstaffing & QRIS Pipeline (3D-like Mesh Scatter, Plotly Canvas) -> 4. Blocker Risk Index (Radar, Chart.js) -> 5. Workflow Diagram (Structured HTML/CSS). Confirming NO SVG. -->
 
     <!-- TOP STICKY NAV -->
     <header class="sticky top-0 z-50 glass-card border-b border-slate-800 bg-slate-900/90 px-4 py-3 backdrop-blur-md">
@@ -79,12 +79,12 @@
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
                     <div>
                         <span class="text-xs font-bold uppercase tracking-wider text-blue-400">Analisis Strategis (Business Delta)</span>
-                        <h2 class="text-2xl font-extrabold text-white">Infrastruktur Siap, Transaksi Menunggu</h2>
+                        <h2 class="text-2xl font-extrabold text-white">Infrastruktur Siap, Transaksi & Testing Menunggu</h2>
                     </div>
                     <span class="text-xs text-slate-400 bg-slate-800 px-3 py-1 rounded-md border border-slate-700">PIC: Leader IT Solution</span>
                 </div>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    Pada periode Agustus 2026, Divisi IT Solution mencetak efisiensi operasional (<span class="text-emerald-400 font-semibold">OPEX</span>) signifikan dengan memangkas biaya langganan AI/Token sebesar <span class="text-emerald-400 font-bold">46%</span> melalui migrasi ke 8 akun Opencode Go. Di sisi lain, penetrasi bisnis baru (<span class="text-amber-400 font-semibold">QRIS v2 & Outstaffing BTN</span>) berada di angka <span class="text-amber-400 font-bold">26.67%</span>. Progres Outstaffing ditahan secara terencana di 10% murni menunggu persetujuan eksternal Klien.
+                    Pada periode Agustus 2026, Divisi IT Solution mencetak efisiensi operasional (<span class="text-emerald-400 font-semibold">OPEX</span>) signifikan dengan memangkas biaya langganan AI/Token sebesar <span class="text-emerald-400 font-bold">46%</span> melalui migrasi ke 8 akun Opencode Go. Di sisi lain, penetrasi bisnis baru (<span class="text-amber-400 font-semibold">QRIS v2 & Outstaffing BTN</span>) berada di angka <span class="text-amber-400 font-bold">26.67%</span>. Progres Outstaffing ditahan secara terencana di 10% murni menunggu persetujuan eksternal Klien, sementara progres QRIS v2 (60%) tertahan pada tahap Performance Testing akibat seluruh resource QA teralokasi untuk pengujian menyeluruh proyek QRIS BTN sepanjang Agustus.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 border-t border-slate-800 text-xs">
                     <div class="p-3 bg-slate-900/60 rounded-lg">
@@ -93,11 +93,11 @@
                     </div>
                     <div class="p-3 bg-slate-900/60 rounded-lg">
                         <span class="text-slate-400 block mb-1">So What (Dampak)</span>
-                        <p class="text-slate-200 font-medium">Revenue pipeline tertahan di pihak eksternal, blocker tersisa pada UI iOS bug.</p>
+                        <p class="text-slate-200 font-medium">Revenue Outstaffing tertahan eksternal, Performance Testing QRIS v2 mengantre resource QA.</p>
                     </div>
                     <div class="p-3 bg-slate-900/60 rounded-lg">
                         <span class="text-slate-400 block mb-1">Now What (Langkah Taktis)</span>
-                        <p class="text-slate-200 font-medium">Terapkan SLA 7 hari follow-up ke klien & wajibkan Agentic Workflow di Mobile.</p>
+                        <p class="text-slate-200 font-medium">SLA 7 hari follow-up Klien BTN & alokasikan dedicated slot QA awal September untuk QRIS v2.</p>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                 <div class="glass-card glass-card-hover p-5 rounded-xl text-center">
                     <div class="text-3xl font-extrabold text-amber-400 mb-1">26.67%</div>
                     <div class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Bisnis Baru (OB 3)</div>
-                    <p class="text-[11px] text-slate-400 mt-1">On-Hold Menunggu Klien</p>
+                    <p class="text-[11px] text-slate-400 mt-1">On-Hold BTN & QA QRIS Queue</p>
                 </div>
             </div>
         </section>
@@ -145,7 +145,7 @@
                         <span class="text-[11px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Chart.js</span>
                     </div>
                     <p class="text-xs text-slate-400">
-                        Grafik di bawah menggambarkan capaian riil seluruh Key Result. KR Otomasi AI mencapai target 100%, sementara instrumen Outstaffing sengaja ditahan pada 10% karena proses persetujuan klien.
+                        Grafik di bawah menggambarkan capaian riil seluruh Key Result. KR Otomasi AI mencapai target 100%, QRIS v2 di 60% (tertahan load test), sementara instrumen Outstaffing sengaja ditahan pada 10% menunggu persetujuan klien.
                     </p>
                     <div class="chart-container">
                         <canvas id="okrProgressChart"></canvas>
@@ -200,7 +200,7 @@
                                 <td class="px-6 py-4 text-center">
                                     <span class="inline-block w-3 h-3 rounded-full bg-amber-500 shadow-lg shadow-amber-500/50"></span>
                                 </td>
-                                <td class="px-6 py-4">Waspada Penundaan. Load test/Pentest harus dikebut agar Win Rate Sales SMT 2 tidak meleset.</td>
+                                <td class="px-6 py-4">Performance Testing tertunda karena resource QA habis untuk proyek QRIS BTN. Butuh dedicated QA di September.</td>
                             </tr>
                             <tr class="hover:bg-slate-800/30">
                                 <td class="px-6 py-4 font-semibold text-white">Instrumen Outstaffing (Ratecard & SOP)</td>
@@ -244,7 +244,7 @@
                         <span class="text-[11px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Plotly.js Canvas</span>
                     </div>
                     <p class="text-xs text-slate-400">
-                        Plot statistik memperlihatkan gap antara progress internal yang hampir rampung (Garapan Document & Automation) dibanding persetujuan instrumen bisnis eksternal.
+                        Plot statistik memperlihatkan gap antara progress internal yang rampung (Garapan & Automation) dibanding QRIS v2 load test dan persetujuan BTN.
                     </p>
                     <div class="chart-container" id="plotlyPipelineChart"></div>
                 </div>
@@ -338,24 +338,24 @@
                     </div>
                 </div>
 
-                <!-- BLOCKER 2 -->
+                <!-- BLOCKER 2 (UPDATED TO QA PERFORMANCE TEST BOTTLENECK) -->
                 <div class="glass-card p-5 rounded-xl border-t-4 border-t-rose-500 flex flex-col justify-between">
                     <div class="space-y-3">
                         <div class="flex justify-between items-start">
-                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider">Blocker Teknis UI/UX</span>
-                            <span class="text-[10px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20">Critical QC Risk</span>
+                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider">Blocker Resource QA</span>
+                            <span class="text-[10px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20">Critical Showcase Risk</span>
                         </div>
-                        <h4 class="text-sm font-bold text-white">Tampilan Mobile iOS Penuh Bug</h4>
+                        <h4 class="text-sm font-bold text-white">Performance Testing QRIS v2 Tertunda</h4>
                         <p class="text-xs text-slate-300">
-                            Kualitas UI/UX mobile iOS belum maksimal dan rentan keluhan quality control.
+                            Resource QA di bulan Agustus terserap 100% untuk pengujian menyeluruh (all-out testing) pada proyek QRIS BTN.
                         </p>
                         <div class="p-3 bg-slate-900/80 rounded-lg text-xs space-y-1">
                             <span class="text-slate-400 font-semibold block">Business Impact:</span>
-                            <p class="text-slate-300">Risiko penolakan UAT oleh klien (UAT Failed) & penundaan cairnya Term of Payment (ToP).</p>
+                            <p class="text-slate-300">Target QRIS v2 Showcase Ready tertahan di 60% karena syarat Load Test belum dapat diselesaikan.</p>
                         </div>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-800 text-xs">
-                        <span class="text-blue-400 font-semibold">Cross-Division Need:</span> Tim Mobile FE + QA ➔ <span class="text-slate-200">Setup Opencode Go di XCode folder & pasang MCP iOS.</span>
+                        <span class="text-blue-400 font-semibold">Cross-Division Need:</span> Lead QA + PMO ➔ <span class="text-slate-200">Alokasikan dedicated QA slot 3-5 hari awal September.</span>
                     </div>
                 </div>
 
@@ -390,10 +390,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                     <div class="md:col-span-1 text-xs text-slate-300 space-y-3">
                         <p class="leading-relaxed">
-                            Diagram radar ini menunjukkan area risiko utama yang perlu dimitigasi. Area <span class="text-rose-400 font-semibold">Bug iOS Mobile</span> dan <span class="text-amber-400 font-semibold">Persetujuan Outstaffing</span> menjadi dua variabel dengan skor risiko tertinggi saat ini.
+                            Diagram radar ini menunjukkan area risiko utama yang perlu dimitigasi. Area <span class="text-rose-400 font-semibold">Load Test QRIS v2</span> dan <span class="text-amber-400 font-semibold">Persetujuan Outstaffing</span> menjadi dua variabel dengan skor risiko tertinggi saat ini.
                         </p>
                         <ul class="space-y-1 text-slate-400 list-disc list-inside">
-                            <li>Skor UI/UX iOS: <span class="text-rose-400 font-bold">85/100 (Risiko Tinggi)</span></li>
+                            <li>Bottleneck QA QRIS v2: <span class="text-rose-400 font-bold">85/100 (Risiko Tinggi)</span></li>
                             <li>Ketergantungan BTN: <span class="text-amber-400 font-bold">80/100 (Risiko Tinggi)</span></li>
                             <li>Penghematan Token: <span class="text-emerald-400 font-bold">15/100 (Sangat Aman)</span></li>
                         </ul>
@@ -435,9 +435,9 @@
                 <div class="glass-card p-6 rounded-xl space-y-4 border-l-4 border-l-blue-500 flex flex-col justify-between">
                     <div class="space-y-2">
                         <span class="text-[10px] uppercase font-bold text-blue-400 tracking-wider">Keputusan B</span>
-                        <h4 class="text-sm font-bold text-white">Mandat Opencode Go Mobile</h4>
+                        <h4 class="text-sm font-bold text-white">Dedicated Slot QA Performance Test</h4>
                         <p class="text-xs text-slate-300 leading-relaxed">
-                            Mandat wajib (<em>Mandatory</em>) bagi seluruh Developer Mobile untuk menginstal Skill/MCP khusus iOS di Opencode Go guna standardisasi UI minggu ini.
+                            Mengesahkan alokasi khusus 1 QA selama <strong>3 hari kerja di minggu pertama September</strong> khusus mengejar Performance Testing & Load Test QRIS v2.
                         </p>
                     </div>
                     <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
@@ -545,10 +545,10 @@
                 </div>
 
                 <div class="p-4 bg-slate-900/90 rounded-xl border border-slate-800 space-y-2">
-                    <div class="text-xs font-bold text-emerald-400 uppercase">Tactical Move 2 (Low Effort)</div>
-                    <h5 class="text-sm font-bold text-white">Rilis E-Book & Xcode Setup</h5>
+                    <div class="text-xs font-bold text-emerald-400 uppercase">Tactical Move 2 (High Impact)</div>
+                    <h5 class="text-sm font-bold text-white">Execution Slot QA Load Test QRIS v2</h5>
                     <p class="text-xs text-slate-400">
-                        Sebarkan E-Book Agentic Workflow dan wajibkan developer iOS mengolah code di folder yang sama dengan project XCode.
+                        Manfaatkan momentum selesainya testing QRIS BTN untuk mengeksekusi performance testing QRIS v2 di minggu pertama September.
                     </p>
                 </div>
 
@@ -728,9 +728,9 @@
 
         // 4. CHART.JS: RADAR CHART FOR RISKS
         const riskLabelsRaw = [
-            'UI/UX Mobile iOS Bug',
+            'Bottleneck QA QRIS v2',
             'Ketergantungan Klien BTN',
-            'Pending Pentest QRIS',
+            'SLA Waktu Tunggu',
             'Metrik Token Per-Dev',
             'Risiko OPEX AI'
         ];
